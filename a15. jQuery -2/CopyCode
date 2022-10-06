@@ -1,28 +1,27 @@
-export const addToCart = (payload) => ({
-    type: "ADD_TO_CART",
-    payload,
-});
+import InitialState from "./InitialState";
 
-export const handleSetLoading = (payload) => ({ 
-    type: "SET_LOADING",
-    payload,
-  });
-  
-  export const handleSetError = (payload) => ({
-    type: "SET_ERROR",
-    payload,
-  });
+const Reducer = (state = InitialState, action) => {
+    const { type, payload } = action;
 
-  export const handleSetResponse = (payload) => ({
-    type: "SET_ISM_USER_ALERT",
-    payload,
-  });
+    switch (type) {
+        case "ADD_TO_CART":
+            return {
+                ...state,
+                product: payload,
+            }
 
-  export const handleFetchRequest = () => ({
-    type: "API_REQUEST",
-    payload: {
-      method: "GET",
-      url: "http://localhost:8080/product",
-      handleSuccess: handleSetResponse,
-    },
-  });
+        case "SET_LOADING":
+            return { ...state, loading: payload };
+
+        case "SET_ERROR":
+            return { ...state, error: payload };
+
+        case "SET_ISM_USER_ALERT":
+            return { ...state, product: payload };
+
+        default:
+            return state;
+    }
+}
+
+export default Reducer;
